@@ -1,0 +1,61 @@
+@model RealTime.Data.Entities.Room
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Name</h1>
+<hr />
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Host)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Host.UserName)
+        </dd>
+    </dl>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <h2>Messages</h2>
+        <h3>@ViewBag.CurrentUser</h3>
+        <ul>
+            @foreach (var item in @Model.Messages)
+            {
+                <li>
+                    <p>@item.Content <br/> <small>Sent by: @item.Sender.UserName</small></p>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <form asp-controller="Message" asp-action="Create">
+            <div class="form-group">
+                <label for="Content" class="control-label"></label>
+                <textarea id="Content" name="Content" class="form-control"></textarea>
+            </div>
+            <input type="hidden" id="RoomId" name="RoomId" value="@Model.Id" />
+            <div class="form-group">
+                <input type="submit" value="Send" id="sendButton" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<hr />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/signalr/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+}

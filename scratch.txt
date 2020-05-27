@@ -1,0 +1,11 @@
+function addMessage() {
+   // here you add the new message to DOM
+   // ...
+
+   // then you can scroll down once to show the new messages
+   var elem = document.getElementById('Commentbox');
+   elem.scrollTop = elem.scrollHeight;
+}
+
+dotnet aspnet-codegenerator controller -name RoomsController -m RealTime.Data.Entities.Room -dc ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+dotnet aspnet-codegenerator controller -api -async -m Tactic -dc ApplicationDbContext -name TacticsController -outDir Controllers -udl
